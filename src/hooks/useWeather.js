@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocationContext } from "../context";
 
 const useWeather = () => {
     const [weatherData, setWeatherData] = useState({
@@ -15,6 +16,8 @@ const useWeather = () => {
         latitude: ""
     });
 
+    const { selectedLocation } = useLocationContext();
+
     const [loading, setLoading] = useState({
         state: false,
         message: ""
@@ -22,7 +25,7 @@ const useWeather = () => {
     const [error, setError] = useState(null);
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY
 
-    const fetchWeatherData = async ({ latitude, longitude }) => {
+    const fetchWeatherData = async (latitude, longitude) => {
 
         try {
             setLoading({ ...loading, state: true, message: "Fetching weather data..." });
@@ -67,11 +70,15 @@ const useWeather = () => {
             message: "Finding your location..."
         })
 
-        navigator.geolocation.getCurrentPosition(function (position) {
-            const { latitude, longitude } = position.coords;
-            fetchWeatherData({ latitude, longitude });
-        });
+        if (selectedLocation.latitude && selectedLocation.longitude) {
+            fetchWeatherData(selectedLocation.latitude, selectedLocation.longitude);
+        } else {
 
+            navigator.geolocation.getCurrentPosition(function (position) {
+                const { latitude, longitude } = position.coords;
+                fetchWeatherData(latitude, longitude);
+            });
+        }
 
         return () => {
             setWeatherData({});
@@ -79,12 +86,13 @@ const useWeather = () => {
             setError(null);
         }
 
-    }, []);
+    }, [selectedLocation.latitude, selectedLocation.longitude]);
 
     return {
         weatherData,
         loading,
         error,
+
     }
 
 }

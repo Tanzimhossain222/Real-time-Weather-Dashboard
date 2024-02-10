@@ -1,3 +1,4 @@
+import PropsType from "prop-types";
 import { FavouriteContext } from "../context";
 import { useLocalStorage } from "../hooks";
 
@@ -24,6 +25,10 @@ const FavouriteProvider = ({ children }) => {
       {children}
     </FavouriteContext.Provider>
   );
+};
+
+FavouriteProvider.propTypes = {
+  children: PropsType.node.isRequired,
 };
 
 export default FavouriteProvider;

@@ -1,14 +1,20 @@
 import Page from "./Page";
-import { FavouriteProvider, WeatherProvider } from "./provider";
+import {
+  FavouriteProvider,
+  LocationProvider,
+  WeatherProvider,
+} from "./provider";
 
 const App = () => {
   return (
     <div>
-      <WeatherProvider>
-        <FavouriteProvider>
-          <Page />
-        </FavouriteProvider>
-      </WeatherProvider>
+      <LocationProvider>
+        <WeatherProvider>
+          <FavouriteProvider>
+            <Page />
+          </FavouriteProvider>
+        </WeatherProvider>
+      </LocationProvider>
     </div>
   );
 };
