@@ -1,9 +1,12 @@
 import Page from "./Page";
+import { WeatherProvider } from "./provider";
 
 const App = () => {
   return (
     <div>
-      <Page />
+      <WeatherProvider>
+        <Page />
+      </WeatherProvider>
     </div>
   );
 };
