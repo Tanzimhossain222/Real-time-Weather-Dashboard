@@ -8,6 +8,11 @@ export default {
     extend: {
       container: {
         center: true,
+        padding: '1.25rem'
+      },
+      colors: {
+        body: "#1D1E28",
+        light: "#fff"
       }
     },
   },

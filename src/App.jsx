@@ -1,7 +1,9 @@
+import Page from "./Page";
+
 const App = () => {
   return (
     <div>
-      <h1>React App</h1>
+      <Page />
     </div>
   );
 };
