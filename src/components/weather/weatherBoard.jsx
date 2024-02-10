@@ -4,7 +4,7 @@ import WeatherCondition from "./WeatherCondition";
 import WeatherHeadLine from "./WeatherHeadLine";
 
 const WeatherBoard = () => {
-  const { weatherData, loading, error } = useWeatherContext();
+  const { loading } = useWeatherContext();
 
   return (
     <>

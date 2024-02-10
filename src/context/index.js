@@ -1,4 +1,6 @@
+import { FavouriteContext, useFavouriteContext } from './FavouriteContext';
 import { WeatherContext, useWeatherContext } from './weatherContext';
 
-export { WeatherContext, useWeatherContext };
+
+export { FavouriteContext, WeatherContext, useFavouriteContext, useWeatherContext };
 

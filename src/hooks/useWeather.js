@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-const apiKey = import.meta.env.VITE_WEATHER_API_KEY
 
 const useWeather = () => {
     const [weatherData, setWeatherData] = useState({
@@ -21,7 +20,7 @@ const useWeather = () => {
         message: ""
     });
     const [error, setError] = useState(null);
-
+    const apiKey = import.meta.env.VITE_WEATHER_API_KEY
 
     const fetchWeatherData = async ({ latitude, longitude }) => {
 
