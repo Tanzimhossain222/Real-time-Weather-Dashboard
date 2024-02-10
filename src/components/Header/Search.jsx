@@ -1,28 +1,35 @@
 import { useState } from "react";
 import searchLogo from "../../assets/search.svg";
 import { useLocationContext } from "../../context";
-import { getLocationByName } from "../../data/location-data";
+import { getLocationCity } from "../../data/getLocation";
 import { useDebounce } from "../../hooks";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { setSelectedLocation } = useLocationContext();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const fetchLocation = getLocationByName(searchTerm);
-    setSelectedLocation({ ...fetchLocation });
+    // const fetchLocation = getLocationByName(searchTerm);
+    // setSelectedLocation({ ...fetchLocation });
+
+    try {
+      const locationData = await getLocationCity(searchTerm);
+      setSelectedLocation(locationData);
+    } catch (error) {
+      console.error("Error fetching location data:", error);
+    }
   };
 
   const doSearch = useDebounce((value) => {
-    const fetchLocation = getLocationByName(value);
+    const fetchLocation = getLocationCity(value);
     setSelectedLocation({ ...fetchLocation });
-  }, 500);
+  }, 1500);
 
   const handleChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
-    doSearch(value);
+    // doSearch(value);
   };
 
   return (
