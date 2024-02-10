@@ -1,7 +1,20 @@
+import Page from "./Page";
+import {
+  FavouriteProvider,
+  LocationProvider,
+  WeatherProvider,
+} from "./provider";
+
 const App = () => {
   return (
     <div>
-      <h1>React App</h1>
+      <LocationProvider>
+        <WeatherProvider>
+          <FavouriteProvider>
+            <Page />
+          </FavouriteProvider>
+        </WeatherProvider>
+      </LocationProvider>
     </div>
   );
 };
