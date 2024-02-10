@@ -2,6 +2,7 @@ import { useState } from "react";
 import searchLogo from "../../assets/search.svg";
 import { useLocationContext } from "../../context";
 import { getLocationByName } from "../../data/location-data";
+import { useDebounce } from "../../hooks";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,6 +12,17 @@ const Search = () => {
     e.preventDefault();
     const fetchLocation = getLocationByName(searchTerm);
     setSelectedLocation({ ...fetchLocation });
+  };
+
+  const doSearch = useDebounce((value) => {
+    const fetchLocation = getLocationByName(value);
+    setSelectedLocation({ ...fetchLocation });
+  }, 500);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    doSearch(value);
   };
 
   return (
@@ -23,7 +35,7 @@ const Search = () => {
             placeholder="Search Location"
             required
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleChange}
           />
           <button type="submit">
             <img src={searchLogo} alt="Search" />
